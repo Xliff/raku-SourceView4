@@ -1,0 +1,12 @@
+prefix=SourceView
+struct-prefix=GtkSource
+modules=SourceView::Raw::Types
+backups=backup,bitbucket,google-backup,azure-backup,hut
+hfile-prefix=
+lib=sourceview
+include-directory=/usr/src/gtksourceview/gtksourceview
+exec=
+subprefixes=
+idir-avail=True
+extension=.h
+build-exclude=SourceView4::Raw::Traps

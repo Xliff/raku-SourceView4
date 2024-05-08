@@ -511,9 +511,9 @@ class SourceView::Search::Context {
     gtk_source_search_context_set_highlight($!ssc, $h);
   }
 
-  method set_match_style (GtkSourceStyle() $match_style)
+  method set_match_style (GtkSourceStyle() $match_style) 
     is also<set-match-style>
-
+  {
     gtk_source_search_context_set_match_style($!ssc, $match_style);
   }
 

@@ -1,5 +1,9 @@
 use v6.c;
 
+use NativeCall;
+
+use SourceView::Raw::Types;
+
 use GLib::Object::Supplyish;
 
 role SourceView::Roles::Signals::Buffer {
@@ -28,7 +32,7 @@ role SourceView::Roles::Signals::Buffer {
         },
         Pointer, 0
       );
-      [ create-signals-supply(𝒮.Supply, $obj, $signal), $obj, $hid ];
+      [ create-signal-supply(𝒮.Supply, $obj, $signal), $obj, $hid ];
     };
     %!signals-sb{$signal}[0].tap(&handler) with &handler;
     %!signals-sb{$signal}[0];
@@ -56,7 +60,7 @@ role SourceView::Roles::Signals::Buffer {
         },
         Pointer, 0
       );
-      [ create-signals-supply(𝒮.Supply, $obj, $signal), $obj, $hid ];
+      [ create-signal-supply(𝒮.Supply, $obj, $signal), $obj, $hid ];
     };
     %!signals-sb{$signal}[0].tap(&handler) with &handler;
     %!signals-sb{$signal}[0];
@@ -79,14 +83,14 @@ role SourceView::Roles::Signals::Buffer {
           }
 
           unless $raw {
-            $i = GTK::Text::Iter.new($i)
+            $i = GTK::Text::Iter.new($i);
             $s = GtkSourceBracketMatchTypeEnum($s);
           }
           𝒮.emit( [self, $i, $s, $ud] );
         },
         Pointer, 0
       );
-      [ create-signals-supply(𝒮.Supply, $obj, $signal), $obj, $hid ];
+      [ create-signal-supply(𝒮.Supply, $obj, $signal), $obj, $hid ];
     };
     %!signals-sb{$signal}[0].tap(&handler) with &handler;
     %!signals-sb{$signal}[0];
@@ -120,6 +124,23 @@ sub g-connect-bracket-matched (
             Pointer,
             GtkTextIter,
             GtkSourceBracketMatchType,
+            gpointer
+          ),
+  Pointer $data,
+  uint32  $flags
+)
+  returns uint64
+  is      native(gobject)
+  is      symbol('g_signal_connect_object')
+{ * }
+
+# GtkSourceBuffer *buffer,  GtkTextIter *iter,  GtkSourceBracketMatchType state
+sub g-connect-source-mark-updated (
+  Pointer $app,
+  Str     $name,
+          &handler (
+            Pointer,
+            GtkTextMark,
             gpointer
           ),
   Pointer $data,

@@ -23,8 +23,11 @@ class GtkSourceInformative        is repr<CPointer> does GLib::Roles::Pointers i
 class GtkSourceLanguage           is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceMark               is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceMarkAttributes     is repr<CPointer> does GLib::Roles::Pointers is export { }
+class GtkSourceSearchContext      is repr<CPointer> does GLib::Roles::Pointers is export { }
+class GtkSourceSearchSettings     is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceSnippet            is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceSnippetBundle      is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceSpaceDrawer        is repr<CPointer> does GLib::Roles::Pointers is export { }
+class GtkSourceStyle              is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceStyleScheme        is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceView               is repr<CPointer> does GLib::Roles::Pointers is export { }

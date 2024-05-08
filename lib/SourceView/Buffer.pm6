@@ -331,6 +331,12 @@ class SourceView::Buffer:ver<4> is GTK::Text::Buffer:ver<4> {
     );
   }
 
+  method get_type {
+    state ($n, $t);
+
+    unstable_get_type( self.^name, &gtk_source_buffer_get_type, $n, $t );
+  }
+
   method iter_backward_to_context_class_toggle (
     GtkTextIter() $iter,
     Str()         $context_class

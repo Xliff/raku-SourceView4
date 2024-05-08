@@ -516,6 +516,12 @@ class SourceView::View is GTK::Text::View:ver<4> {
     gtk_source_view_get_tab_width($!sv);
   }
 
+  method get_type {
+    state ($n, $t);
+
+    unstable_get_type( self.^name, &gtk_source_view_get_type, $n, $t );
+  }
+
   method get_visual_column (GtkTextIter() $iter) is also<get-visual-column> {
     gtk_source_view_get_visual_column($!sv, $iter);
   }

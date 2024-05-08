@@ -138,6 +138,17 @@ class SourceView::Source::Completion::Provider::Words {
     );
   }
 
+  method get_type {
+    state ($n, $t);
+
+    unstable_get_type(
+      self.^name,
+      &gtk_source_completion_words_get_type,
+      $n,
+      $t
+    );
+  }
+
   method register (GtkTextBuffer() $buffer) {
     gtk_source_completion_words_register($!scw, $buffer);
   }
@@ -167,6 +178,12 @@ sub gtk_source_completion_words_unregister (
   GtkSourceCompletionWords $words,
   GtkTextBuffer            $buffer
 )
+  is      native(sourceview)
+  is      export
+{ * }
+
+sub gtk_source_completion_words_get_type
+  returns GType
   is      native(sourceview)
   is      export
 { * }

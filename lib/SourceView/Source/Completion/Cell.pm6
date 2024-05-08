@@ -2,6 +2,7 @@ use v6.c;
 
 use Method::Also;
 
+use GLib::Raw::Traits;
 use SourceView::Raw::Types;
 use SourceView::Raw::Source::Completion::Cell;
 
@@ -10,9 +11,9 @@ use GTK::Widget:ver<4>;
 use GLib::Roles::Implementor;
 
 our subset GtkSourceCompletionCellAncestry is export of Mu
-  where GtkSourceCompletionCell | GObject;
+  where GtkSourceCompletionCell | GtkWidgetAncestry;
 
-class SourceView::Completion::Cell is GTK::Widget:ver<4> {
+class SourceView::Source::Completion::Cell is GTK::Widget:ver<4> {
   has GtkSourceCompletionCell $!scc is implementor;
 
   submethod BUILD ( :$gtk-comp-cell ) {
@@ -24,7 +25,7 @@ class SourceView::Completion::Cell is GTK::Widget:ver<4> {
 
     $!scc = do {
       when GtkSourceCompletionCell {
-        $to-parent = cast(GObject, $_);
+        $to-parent = cast(GtkWidget, $_);
         $_;
       }
 
@@ -33,7 +34,7 @@ class SourceView::Completion::Cell is GTK::Widget:ver<4> {
         cast(GtkSourceCompletionCell, $_);
       }
     }
-    self!setObject($to-parent);
+    self.setGtkWidget($to-parent);
   }
 
   method SourceView::Raw::Definitions::GtkSourceCompletionCell
@@ -53,7 +54,7 @@ class SourceView::Completion::Cell is GTK::Widget:ver<4> {
   }
 
   # Type: GtkSourceTypeCompletionColumn
-  method column is rw  is g-property {
+  method column ( :$raw = False ) is rw  is g-property {
     my $gv = GLib::Value.new( SourceView::Completion::Column.get_type );
     Proxy.new(
       FETCH => sub ($) {
@@ -151,6 +152,17 @@ class SourceView::Completion::Cell is GTK::Widget:ver<4> {
       gtk_source_completion_cell_get_column($!scc),
       $raw,
       |SourceView::Completion::Column.getTypePair
+    );
+  }
+
+  method get_type {
+    state ($n, $t);
+
+    unstable_get_type(
+      self.^name,
+      &gtk_source_completion_cell_get_type,
+      $n,
+      $t
     );
   }
 

@@ -80,6 +80,12 @@ class SourceView::Mark:ver<4> is GTK::Text::Mark:ver<4> {
     gtk_source_mark_get_category($!sm);
   }
 
+  method get_type {
+    state ($n, $t);
+
+    unstable_get_type( self.^name, &gtk_source_mark_get_type, $n, $t );
+  }
+
   method next (Str() $category = Str, :$raw = False) {
     propReturnObject(
       gtk_source_mark_next($!sm, $category),
@@ -129,6 +135,12 @@ sub gtk_source_mark_prev (
   Str           $category
 )
   returns GtkSourceMark
+  is      native(sourceview)
+  is      export
+{ * }
+
+sub gtk_source_mark_get_type ()
+  returns GType
   is      native(sourceview)
   is      export
 { * }

@@ -16,11 +16,13 @@ class GtkSourceCompletionCell     is repr<CPointer> does GLib::Roles::Pointers i
 class GtkSourceCompletionContext  is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceCompletionProposal is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceCompletionProvider is repr<CPointer> does GLib::Roles::Pointers is export { }
+class GtkSourceCompletionWords    is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceGutter             is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceHover              is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceIndenter           is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceInformative        is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceLanguage           is repr<CPointer> does GLib::Roles::Pointers is export { }
+class GtkSourceMap                is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceMark               is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceMarkAttributes     is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceSearchContext      is repr<CPointer> does GLib::Roles::Pointers is export { }

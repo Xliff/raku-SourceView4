@@ -3,13 +3,12 @@ use v6.c;
 use NativeCall;
 
 use GLib::Raw::Traits;
-use SourceView::Raw::Definitions:ver<4>;
-use GTK::Raw::Definitions:ver<4>;
+use SourceView::Raw::Types:ver<4>;
 
 use GTK::Widget:ver<4>;
 use SourceView::View:ver<4>;
 
-class SourceView::Map is GTK::Widget:ver<4> {
+class SourceView::Map:ver<4> is GTK::Widget:ver<4> {
   has GtkSourceMap $!svm;
 
   multi method new ( *%a ) {
@@ -32,6 +31,12 @@ class SourceView::Map is GTK::Widget:ver<4> {
       $raw,
       |SourceView::View.getTypePair
     );
+  }
+
+  method get_type {
+    state ($n, $t);
+
+    unstable_get_type( self.^name, &gtk_source_map_get_type, $n, $t );
   }
 
   method set_view (GtkSourceView() $view) {
@@ -59,6 +64,12 @@ sub gtk_source_map_set_view (
   GtkSourceMap  $map,
   GtkSourceView $view
 )
+  is      native(sourceview)
+  is      export
+{ * }
+
+sub gtk_source_map_get_type
+  returns GType
   is      native(sourceview)
   is      export
 { * }

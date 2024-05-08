@@ -3,8 +3,13 @@ use v6.c;
 use NativeCall;
 
 use GLib::Raw::Definitions;
+use GIO::Raw::Definitions;
+use Pango::Raw::Definitions;
+use GDK::Raw::Definitions:ver<4>;
 use GTK::Raw::Definitions:ver<4>;
-use SourceView::Raw::Definitions;
+use GTK::Raw::Structs:ver<4>;
+use SourceView::Raw::Definitions:ver<4>;
+use SourceView::Raw::Enums:ver<4>;
 
 unit package SourceView::Raw::Completion::Cell:ver<4>;
 
@@ -75,6 +80,15 @@ sub gtk_source_completion_cell_set_widget (
   GtkSourceCompletionCell $self,
   GtkWidget               $child
 )
+  is      native(sourceview)
+  is      export
+{ * }
+
+sub gtk_source_completion_cell_get_type (
+  GtkSourceCompletionCell $self,
+  GtkWidget               $child
+)
+  returns GType
   is      native(sourceview)
   is      export
 { * }

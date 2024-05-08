@@ -91,3 +91,9 @@ sub gtk_source_completion_unblock_interactive (GtkSourceCompletion $self)
   is      native(sourceview)
   is      export
 { * }
+
+sub gtk_source_completion_get_type
+  returns GType
+  is      native(sourceview)
+  is      export
+{ * }

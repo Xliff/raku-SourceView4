@@ -317,3 +317,9 @@ sub gtk_source_view_unindent_lines (
   is      native(sourceview)
   is      export
 { * }
+
+sub gtk_source_view_get_type ()
+  returns GType
+  is      native(sourceview)
+  is      export
+{ * }

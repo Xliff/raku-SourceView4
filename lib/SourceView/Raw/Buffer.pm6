@@ -249,3 +249,9 @@ sub gtk_source_buffer_sort_lines (
   is      native(sourceview)
   is      export
 { * }
+
+sub gtk_source_buffer_get_type ()
+  returns GType
+  is      native(sourceview)
+  is      export
+{ * }

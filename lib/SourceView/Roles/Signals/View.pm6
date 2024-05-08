@@ -4,11 +4,13 @@ use NativeCall;
 
 use SourceView::Raw::Types:ver<4>;
 
-use SourceView::Snippet:ver<4>;
+use GLib::Object::Supplyish;
+
+#use SourceView::Snippet:ver<4>;
 use GTK::Text::Iter:ver<4>;
 
 role SourceView::Roles::Signals::View {
-  has %!signals-sv
+  has %!signals-sv;
 
   #  GtkSourceSnippet *snippet,  GtkTextIter *location --> void
   method connect-push-snippet (
@@ -35,7 +37,7 @@ role SourceView::Roles::Signals::View {
         },
         Pointer, 0
       );
-      [ create-signals-supply(𝒮.Supply, $object, $signal), $obj, $hid ];
+      [ create-signal-supply(𝒮.Supply, $obj, $signal), $obj, $hid ];
     };
     %!signals-sv{$signal}[0].tap(&handler) with &handler;
     %!signals-sv{$signal}[0];
@@ -58,7 +60,7 @@ role SourceView::Roles::Signals::View {
           }
 
           unless $raw {
-            $i = GTK::Text::Iter.new($t);
+            $i = GTK::Text::Iter.new($i);
             $s = GdkModifierTypeEnum($s);
           }
 
@@ -66,7 +68,7 @@ role SourceView::Roles::Signals::View {
         },
         Pointer, 0
       );
-      [ create-signals-supply(𝒮.Supply, $obj, $signal), $obj, $hid ];
+      [ create-signal-supply(𝒮.Supply, $obj, $signal), $obj, $hid ];
     };
     %!signals-sv{$signal}[0].tap(&handler) with &handler;
     %!signals-sv{$signal}[0];

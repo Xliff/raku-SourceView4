@@ -241,6 +241,12 @@ class SourceView::Source::Completion {
     );
   }
 
+  method get_type {
+    state ($n, $t);
+
+    unstable_get_type( self.^name, &gtk_source_completion_get_type, $n, $t );
+  }
+
   method hide {
     gtk_source_completion_hide($!sc);
   }

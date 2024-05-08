@@ -4,6 +4,8 @@ use NativeCall;
 
 use SourceView::Raw::Types;
 
+use GLib::Object::Supplyish;
+
 role SourceView::Roles::Signals::Source::Completion {
   has %!signals-sc;
 
@@ -30,7 +32,7 @@ role SourceView::Roles::Signals::Source::Completion {
         },
         Pointer, 0
       );
-      [ create-signals-supply(𝒮.Supply, $obj, $signal), $obj, $hid ];
+      [ create-signal-supply(𝒮.Supply, $obj, $signal), $obj, $hid ];
     };
     %!signals-sc{$signal}[0].tap(&handler) with &handler;
     %!signals-sc{$signal}[0];

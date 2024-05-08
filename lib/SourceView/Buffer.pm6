@@ -2,10 +2,12 @@ use v6.c;
 
 use Method::Also;
 
+use GLib::Raw::Traits;
 use SourceView::Raw::Types;
 use SourceView::Raw::Buffer;
 
-use GTK::Buffer:ver<4>;
+use GLib::GSList;
+use GTK::Text::Buffer:ver<4>;
 
 use GLib::Roles::Implementor;
 use SourceView::Roles::Signals::Buffer;
@@ -54,8 +56,8 @@ class SourceView::Buffer:ver<4> is GTK::Text::Buffer:ver<4> {
     $o.ref if $ref;
     $o;
   }
-  multi method new {
-    my $gtk-source-buffer = gtk_source_buffer_new();
+  multi method new (GtkTextTagTable() $table = GtkTextTagTable) {
+    my $gtk-source-buffer = gtk_source_buffer_new($table);
 
     $gtk-source-buffer ?? self.bless( :$gtk-source-buffer ) !! Nil
   }
@@ -131,7 +133,7 @@ class SourceView::Buffer:ver<4> is GTK::Text::Buffer:ver<4> {
           |SourceView::Language.getTypePair
         );
       },
-      STORE => -> $, GtkSourceTypeLanguage() $val is copy {
+      STORE => -> $, GtkSourceLanguage() $val is copy {
         $gv.object = $val;
         self.prop_set('language', $gv);
       }
@@ -271,7 +273,7 @@ class SourceView::Buffer:ver<4> is GTK::Text::Buffer:ver<4> {
 
   method get_implicit_trailing_newline
     is also<get-implicit-trailing-newline>
-  S{
+  {
     so gtk_source_buffer_get_implicit_trailing_newline($!sb);
   }
 
@@ -330,8 +332,8 @@ class SourceView::Buffer:ver<4> is GTK::Text::Buffer:ver<4> {
   }
 
   method iter_backward_to_context_class_toggle (
-    GtkTextIter()-     $iter,
-    Str()-             $context_class
+    GtkTextIter() $iter,
+    Str()         $context_class
   )
     is also<iter-backward-to-context-class-toggle>
   {

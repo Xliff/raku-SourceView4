@@ -3,7 +3,7 @@ use v6.c;
 use Method::Also;
 
 use SourceView::Raw::Types;
-use SourceView::Rw::Buffer;
+use SourceView::Raw::Buffer;
 
 use GTK::Buffer:ver<4>;
 

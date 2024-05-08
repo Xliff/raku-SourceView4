@@ -452,6 +452,16 @@ class SourceView::Search::Context {
     );
   }
 
+  method get_type {
+    state ($n, $t);
+
+    unstable_get_type(
+      self.^name,
+      &gtk_source_search_context_get_type,
+      $n,
+      $t
+    );
+
   method replace (
     GtkTextIter()           $match_start,
     GtkTextIter()           $match_end,

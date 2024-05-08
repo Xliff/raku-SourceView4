@@ -188,3 +188,9 @@ sub gtk_source_search_context_set_match_style (
   is      native(sourceview)
   is      export
 { * }
+
+sub gtk_source_search_context_get_type
+  returns GType
+  is      native(sourceview)
+  is      export
+{ * }

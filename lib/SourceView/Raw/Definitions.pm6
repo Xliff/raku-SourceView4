@@ -33,3 +33,5 @@ class GtkSourceSpaceDrawer        is repr<CPointer> does GLib::Roles::Pointers i
 class GtkSourceStyle              is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceStyleScheme        is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceView               is repr<CPointer> does GLib::Roles::Pointers is export { }
+class GtkSourceSnippetContext     is repr<CPointer> does GLib::Roles::Pointers is export { }
+class GtkSourceSnippetChunk       is repr<CPointer> does GLib::Roles::Pointers is export { }

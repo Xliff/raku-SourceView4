@@ -513,11 +513,7 @@ class SourceView::Search::Context {
 
   method set_match_style (GtkSourceStyle() $match_style)
     is also<set-match-style>
-<<<<<<< HEAD
-  {
-=======
-   {
->>>>>>> 3afbec43a0cc36ff1b6d496b6ed4f775f59d0a39
+
     gtk_source_search_context_set_match_style($!ssc, $match_style);
   }
 

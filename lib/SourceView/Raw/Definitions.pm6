@@ -25,6 +25,7 @@ class GtkSourceLanguage           is repr<CPointer> does GLib::Roles::Pointers i
 class GtkSourceMap                is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceMark               is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceMarkAttributes     is repr<CPointer> does GLib::Roles::Pointers is export { }
+class GtkSourceRegion             is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceSearchContext      is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceSearchSettings     is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceSnippet            is repr<CPointer> does GLib::Roles::Pointers is export { }

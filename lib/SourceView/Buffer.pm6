@@ -8,6 +8,8 @@ use SourceView::Raw::Buffer;
 
 use GLib::GSList;
 use GTK::Text::Buffer:ver<4>;
+use SourceView::Mark:ver<4>;
+use SourceView::Tag:ver<4>;
 
 use GLib::Roles::Implementor;
 use SourceView::Roles::Signals::Buffer;
@@ -217,22 +219,33 @@ class SourceView::Buffer:ver<4> is GTK::Text::Buffer:ver<4> {
   }
 
   method create_source_mark (
-    Str()             $name,
-    Str()             $category,
-    GtkTextIter()     $where
+    Str()          $name,
+    Str()          $category,
+    GtkTextIter()  $where,
+                  :$raw = False,
+                  *%a
   )
     is also<create-source-mark>
   {
-    gtk_source_buffer_create_source_mark($!sb, $name, $category, $where);
+    my $o = propReturnObject(
+      gtk_source_buffer_create_source_mark($!sb, $name, $category, $where),
+      $raw,
+      |SourceView::Mark.getTypePair
+    );
+    $o.setAttributes(%a) if $o && +%a;
+    $o;
   }
 
-  method create_source_tag (
-    Str             $tag_name,
-    Str             $first_property_name
-  )
+  method create_source_tag (Str $tag_name = Str, :$raw = False, *%a)
     is also<create-source-tag>
   {
-    gtk_source_buffer_create_source_tag($!sb, $tag_name, $first_property_name);
+    my $o = propReturnObject(
+      gtk_source_buffer_create_source_tag($!sb, $tag_name, Str),
+      $raw,
+      |SourceView::Tag.getTypePair
+    );
+    $o.setAttributes(%a) if $o && +%a;
+    $o;
   }
 
   method ensure_highlight (

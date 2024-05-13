@@ -6,9 +6,11 @@ use NativeCall;
 use SourceView::Raw::Types;
 use SourceView::Raw::Style::Scheme::Manager;
 
+use GLib::Object::Types;
+use SourceView::Style::Scheme;
+
 use GLib::Roles::Implementor;
 use GLib::Roles::Object;
-
 
 our subset GtkSourceStyleSchemeManagerAncestry is export of Mu
   where GtkSourceStyleSchemeManager | GObject;
@@ -71,11 +73,11 @@ class SourceView::Style::Scheme::Manager {
     is g-property
     is also<scheme_ids>
   {
-    my $gv = GLib::Value.new( G_TYPE_POINTER );
+    my $gv = GLib::Value.new( GLib::StringV.get_type );
     Proxy.new(
       FETCH => sub ($) {
         self.prop_get('scheme-ids', $gv);
-        my $ca = cast(CArray[Str], $gv.pointer);
+        my $ca = cast(CArray[Str], $gv.boxed);
         return $ca if $raw;
         CStringArrayToArray($ca);
       },
@@ -91,7 +93,7 @@ class SourceView::Style::Scheme::Manager {
     is g-property
     is also<search_path>
   {
-    my $gv = GLib::Value.new( G_TYPE_POINTER );
+    my $gv = GLib::Value.new( GLib::StringV.get_type );
     Proxy.new(
       FETCH => sub ($) {
         self.prop_get('search-path', $gv);
@@ -131,7 +133,12 @@ class SourceView::Style::Scheme::Manager {
     gtk_source_style_scheme_manager_force_rescan($!sssm);
   }
 
-  method get_default ( :$raw = False ) is also<get-default> {
+  method get_default ( :$raw = False )
+    is also<
+      get-default
+      default
+    >
+  {
     my $gtk-scheme-manager = gtk_source_style_scheme_manager_get_default();
 
     return Nil                 unless $gtk-scheme-manager;
@@ -176,11 +183,15 @@ class SourceView::Style::Scheme::Manager {
   method AT-POS (\k) {
     my $names = self.get_scheme_ids;
     return Nil unless k < $names.elems;
-    $names[k];
+    self.get-scheme( $names[k] );
   }
 
   method EXITS-POS (\k) {
     self.AT-POS(k).defined;
+  }
+
+  method elems {
+    self.get_scheme_ids.elems;
   }
 
   method iterator {
@@ -192,9 +203,8 @@ class SourceView::Style::Scheme::Manager {
         has $.index is rw = 0;
 
         method pull-one is also<pull_one> {
-          $!index++ while $names.elems > $!index;
           $names.elems > $!index
-            ?? $self.get-scheme( $names[$!index] ) !! IterationEnd;
+            ?? $self.get-scheme( $names[$!index++] ) !! IterationEnd;
         }
       }
     ).new;

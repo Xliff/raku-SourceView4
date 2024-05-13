@@ -7,6 +7,8 @@ use SourceView::Raw::Types;
 use SourceView::Raw::View;
 
 use GTK::Text::View:ver<4>;
+use SourceView::Buffer:ver<4>;
+use SourceView::SpaceDrawer:ver<4>;
 
 use GLib::Roles::Implementor;
 
@@ -63,6 +65,25 @@ class SourceView::View is GTK::Text::View:ver<4> {
     my $gtk-source-view = gtk_source_view_new_with_buffer($buffer);
 
     $gtk-source-view ?? self.bless( :$gtk-source-view ) !! Nil;
+  }
+
+  # Type: GtkSourceBuffer (override)
+  method buffer ( :$raw = False ) is rw  is g-property {
+    my $gv = GLib::Value.new( SourceView::Buffer.get_type );
+    Proxy.new(
+      FETCH => sub ($) {
+        self.prop_get('buffer', $gv);
+        propReturnObject(
+          $gv.object,
+          $raw,
+          |SourceView::Buffer.getTypePair
+        );
+      },
+      STORE => -> $, GtkTextBuffer() $val is copy {
+        $gv.object = $val;
+        self.prop_set('buffer', $gv);
+      }
+    );
   }
 
   # Type: boolean
@@ -258,8 +279,7 @@ class SourceView::View is GTK::Text::View:ver<4> {
   }
 
   # Type: boolean
-  method
-    show-line-numbers is rw
+  method show-line-numbers is rw
     is g-property
     is also<
       show_line_numbers
@@ -281,7 +301,11 @@ class SourceView::View is GTK::Text::View:ver<4> {
   }
 
   # Type: boolean
-  method show-right-margin is rw  is g-property is also<show_right_margin> {
+  method show-right-margin
+    is rw
+    is g-property
+    is also<show_right_margin>
+  {
     my $gv = GLib::Value.new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => sub ($) {
@@ -296,7 +320,11 @@ class SourceView::View is GTK::Text::View:ver<4> {
   }
 
   # Type: boolean
-  method smart-backspace is rw  is g-property is also<smart_backspace> {
+  method smart-backspace
+    is rw
+    is g-property
+    is also<smart_backspace>
+  {
     my $gv = GLib::Value.new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => sub ($) {

@@ -120,6 +120,17 @@ class SourceView::SpaceDrawer {
     JSON::GLib::Variant.serialize-data($v).&from-json
   }
 
+  method get_type {
+    state ($n, $t);
+
+    unstable_get_type(
+      self.^name,
+      &gtk_source_space_drawer_get_type,
+      $n,
+      $t
+    );
+  }
+
   method get_types_for_locations (Int() $locations)
     is also<get-types-for-locations>
   {

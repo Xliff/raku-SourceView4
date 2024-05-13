@@ -74,3 +74,9 @@ sub gtk_source_space_drawer_set_types_for_locations (
   is      native(sourceview)
   is      export
 { * }
+
+sub gtk_source_space_drawer_get_type ()
+  returns GType
+  is      native(sourceview)
+  is      export
+{ * }

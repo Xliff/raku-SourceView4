@@ -47,7 +47,7 @@ sub gtk_source_buffer_create_source_mark (
 sub gtk_source_buffer_create_source_tag (
   GtkSourceBuffer $buffer,
   Str             $tag_name,
-  Str             $first_property_name
+  Str
 )
   returns GtkTextTag
   is      native(sourceview)

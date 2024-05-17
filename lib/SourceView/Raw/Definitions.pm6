@@ -17,6 +17,8 @@ class GtkSourceCompletionContext  is repr<CPointer> does GLib::Roles::Pointers i
 class GtkSourceCompletionProposal is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceCompletionProvider is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceCompletionWords    is repr<CPointer> does GLib::Roles::Pointers is export { }
+class GtkSourceEncoding           is repr<CPointer> does GLib::Roles::Pointers is export { }
+class GtkSourceFile               is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceGutter             is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceHover              is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceIndenter           is repr<CPointer> does GLib::Roles::Pointers is export { }

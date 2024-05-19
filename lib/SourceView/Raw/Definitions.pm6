@@ -26,6 +26,7 @@ class GtkSourceHover              is repr<CPointer> does GLib::Roles::Pointers i
 class GtkSourceIndenter           is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceInformative        is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceLanguage           is repr<CPointer> does GLib::Roles::Pointers is export { }
+class GtkSourceLanguageManager    is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceMap                is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceMark               is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceMarkAttributes     is repr<CPointer> does GLib::Roles::Pointers is export { }

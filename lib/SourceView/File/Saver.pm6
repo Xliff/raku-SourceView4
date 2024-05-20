@@ -133,13 +133,13 @@ class SourceView::File::Saver {
       FETCH => sub ($) {
         self.prop_get('encoding', $gv);
         propReturnObject(
-          $gv.object,
+          $gv.boxed,
           $raw,
           |SourceView::Encoding.getTypePair
         );
       },
       STORE => -> $, GtkSourceEncoding() $val is copy {
-        $gv.object = $val;
+        $gv.pointer = $val;
         self.prop_set('encoding', $gv);
       }
     );

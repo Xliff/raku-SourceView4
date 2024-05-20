@@ -122,37 +122,37 @@ class SourceView::Gutter:ver<4> is GTK::Widget:ver<4> {
 
 }
 
-  ### /usr/src/gtksourceview/gtksourceview/gtksourcegutter.h
+### /usr/src/gtksourceview/gtksourceview/gtksourcegutter.h
 
-  sub gtk_source_gutter_get_view (GtkSourceGutter $gutter)
-    returns GtkSourceView
-    is      native(sourceview)
-    is      export
-  { * }
+sub gtk_source_gutter_get_view (GtkSourceGutter $gutter)
+  returns GtkSourceView
+  is      native(sourceview)
+  is      export
+{ * }
 
-  sub gtk_source_gutter_insert (
-    GtkSourceGutter         $gutter,
-    GtkSourceGutterRenderer $renderer,
-    gint                    $position
-  )
-    returns uint32
-    is      native(sourceview)
-    is      export
-  { * }
+sub gtk_source_gutter_insert (
+  GtkSourceGutter         $gutter,
+  GtkSourceGutterRenderer $renderer,
+  gint                    $position
+)
+  returns uint32
+  is      native(sourceview)
+  is      export
+{ * }
 
-  sub gtk_source_gutter_remove (
-    GtkSourceGutter         $gutter,
-    GtkSourceGutterRenderer $renderer
-  )
-    is      native(sourceview)
-    is      export
-  { * }
+sub gtk_source_gutter_remove (
+  GtkSourceGutter         $gutter,
+  GtkSourceGutterRenderer $renderer
+)
+  is      native(sourceview)
+  is      export
+{ * }
 
-  sub gtk_source_gutter_reorder (
-    GtkSourceGutter         $gutter,
-    GtkSourceGutterRenderer $renderer,
-    gint                    $position
-  )
-    is      native(sourceview)
-    is      export
-  { * }
+sub gtk_source_gutter_reorder (
+  GtkSourceGutter         $gutter,
+  GtkSourceGutterRenderer $renderer,
+  gint                    $position
+)
+  is      native(sourceview)
+  is      export
+{ * }

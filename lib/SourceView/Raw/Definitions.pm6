@@ -24,6 +24,7 @@ class GtkSourceGutter               is repr<CPointer> does GLib::Roles::Pointers
 class GtkSourceGutterLines          is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceGutterRenderer       is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceGutterRendererPixbuf is repr<CPointer> does GLib::Roles::Pointers is export { }
+class GtkSourceGutterRendererText   is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceHover                is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceIndenter             is repr<CPointer> does GLib::Roles::Pointers is export { }
 class GtkSourceInformative          is repr<CPointer> does GLib::Roles::Pointers is export { }

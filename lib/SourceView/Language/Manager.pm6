@@ -101,24 +101,7 @@ class SourceView::Language::Manager {
         CStringArrayToArray($ca);
       },
       STORE => -> $, $val is copy {
-        if $val !~~ CArray[Str] {
-          $val = do given $val {
-            when Array {
-              $_ = newCArray(Str, $_);
-            }
-
-            when Pointer {
-              $_ = cast(CArray[Str], $_);
-            }
-
-            default {
-              X::GLib::InvalidType.new(
-                message => "Value must be compatible to a CArray[Str]!"
-              ).throw;
-            }
-          }
-        }
-        $gv.pointer = $val;
+        $gv.pointer = resolveCArray(Str, $val);
         self.prop_set('search-path', $gv);
       }
     );

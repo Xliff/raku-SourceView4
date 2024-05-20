@@ -40,7 +40,7 @@ class SourceView::File {
       FETCH => sub ($) {
         self.prop_get('encoding', $gv);
         propReturnObject(
-          $gv.object,
+          $gv.boxed,
           $raw,
           |SourceView::Encoding.getTypePair
         );

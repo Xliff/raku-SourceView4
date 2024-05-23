@@ -43,6 +43,9 @@ class SourceView::View is GTK::Text::View:ver<4> {
     is also<GtkSourceView>
   { $!sv }
 
+  proto method new (|)
+  { * }
+
   multi method new (
     $gtk-source-view where * ~~ GtkSourceViewAncestry,
 
@@ -55,16 +58,24 @@ class SourceView::View is GTK::Text::View:ver<4> {
     $o;
   }
 
-  multi method new {
+  multi method new ( *%a ) {
     my $gtk-source-view = gtk_source_view_new();
 
-    $gtk-source-view ?? self.bless( :$gtk-source-view ) !! Nil;
+    my $o = $gtk-source-view ?? self.bless( :$gtk-source-view ) !! Nil;
+    $o.setAttributes(%a) if $o && +%a;
+    $o;
   }
 
-  method new_with_buffer (GtkTextBuffer() $buffer) is also<new-with-buffer> {
+  method new_with_buffer (GtkTextBuffer() $buffer, *%a)
+    is also<new-with-buffer>
+  {
     my $gtk-source-view = gtk_source_view_new_with_buffer($buffer);
+    # cw: Not allowed since it is a parameter.
+    %a<buffer>:delete;
 
-    $gtk-source-view ?? self.bless( :$gtk-source-view ) !! Nil;
+    my $o = $gtk-source-view ?? self.bless( :$gtk-source-view ) !! Nil;
+    $o.setAttributes(%a) if $o && +%a;
+    $o;
   }
 
   # Type: GtkSourceBuffer (override)
@@ -264,7 +275,13 @@ class SourceView::View is GTK::Text::View:ver<4> {
   }
 
   # Type: boolean
-  method show-line-marks is rw  is g-property is also<show_line_marks> {
+  method show-line-marks is rw  is g-property
+    is also<
+      show_line_marks
+      line-marks
+      line_marks
+    >
+  {
     my $gv = GLib::Value.new( G_TYPE_BOOLEAN );
     Proxy.new(
       FETCH => sub ($) {
@@ -448,13 +465,31 @@ class SourceView::View is GTK::Text::View:ver<4> {
     so gtk_source_view_get_enable_snippets($!sv);
   }
 
-  method get_gutter (Int() $window_type, :$raw = False) is also<get-gutter> {
+  proto method get_gutter (|)
+    is also<get-gutter>
+  { * }
+
+  method left-gutter is also<left_gutter> {
+    self.get_gutter( :l );
+  }
+
+  method right-gutter is also<right_gutter> {
+    self.get_gutter( :r );
+  }
+
+  multi method get_gutter ( :l(:$left) is required where *.so ) {
+    samewith( GTK_TEXT_WINDOW_LEFT )
+  }
+  multi method get_gutter ( :r(:$right) is required where *.so) {
+    samewith( GTK_TEXT_WINDOW_RIGHT )
+  }
+  multi method get_gutter (Int() $window_type, :$raw = False)  {
     my GtkTextWindowType $w = $window_type;
 
     propReturnObject(
       gtk_source_view_get_gutter($!sv, $w),
       $raw,
-      |SourceView::Gutter.getTypePair
+      |::('SourceView::Gutter').getTypePair
     );
   }
 

@@ -1,6 +1,9 @@
 use v6.c;
 
 use Method::Also;
+use NativeCall;
+
+use SourceView::Raw::Definitions;
 
 use GLib::Roles::StaticClass;
 

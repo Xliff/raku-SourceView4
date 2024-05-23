@@ -100,7 +100,7 @@ class SourceView::Gutter:ver<4> is GTK::Widget:ver<4> {
 
   method insert (
     GtkSourceGutterRenderer() $renderer,
-    Int()                     $position
+    Int()                     $position  = 0
   ) {
     my gint $p = $position;
 

@@ -11,11 +11,14 @@ use SourceView::View;
 
 use GLib::Roles::Implementor;
 use GLib::Roles::Object;
+use SourceView::Roles::Signals::Gutter::Renderer;
 
 our subset GtkSourceGutterRendererAncestry is export of Mu
   where GtkSourceGutterRenderer | GtkWidgetAncestry;
 
 class SourceView::Gutter::Renderer is GTK::Widget:ver<4> {
+  also does SourceView::Roles::Signals::Gutter::Renderer;
+
   has GtkSourceGutterRenderer $!sgr is implementor;
 
   submethod BUILD ( :$gtk-gutter-renderer ) {
@@ -169,20 +172,20 @@ class SourceView::Gutter::Renderer is GTK::Widget:ver<4> {
 
   # Is originally:
   # GtkSourceGutterRenderer *renderer,  GtkTextIter *iter,  GdkRectangle *area,  guint button,  GdkModifierType state,  gint n_presses --> void
-  method Activate {
-    self.connect-activate($!sgr);
+  method Activate ( :$raw = False ) {
+    self.connect-activate($!sgr, :$raw);
   }
 
   # Is originally:
   # GtkSourceGutterRenderer *renderer,  GtkTextIter *iter,  GdkRectangle *area --> gboolean
-  method Query-Activatable is also<Query_Activatable> {
-    self.connect-query-activatable($!sgr);
+  method Query-Activatable ( :$raw = False ) is also<Query_Activatable> {
+    self.connect-query-activatable($!sgr, :$raw);
   }
 
   # Is originally:
   # GtkSourceGutterRenderer *renderer,  GtkSourceGutterLines *lines,  guint line --> void
-  method Query-Data is also<Query_Data> {
-    self.connect-query-data($!sgr);
+  method Query-Data ( :$raw = False ) is also<Query_Data> {
+    self.connect-query-data($!sgr, :$raw);
   }
 
   method activate (

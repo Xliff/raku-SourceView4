@@ -12,8 +12,8 @@ unit package SourceView::Gutter::Renderer::Text;
 sub gtk_source_gutter_renderer_text_measure (
   GtkSourceGutterRendererText $renderer,
   Str                         $text,
-  gint                        $width is rw,
-  gint                        $height is rw
+  gint                        $width     is rw,
+  gint                        $height    is rw
 )
   is      native(sourceview)
   is      export
@@ -22,8 +22,8 @@ sub gtk_source_gutter_renderer_text_measure (
 sub gtk_source_gutter_renderer_text_measure_markup (
   GtkSourceGutterRendererText $renderer,
   Str                         $markup,
-  gint                        $width is rw,
-  gint                        $height is rw
+  gint                        $width     is rw,
+  gint                        $height    is rw
 )
   is      native(sourceview)
   is      export

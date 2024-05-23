@@ -69,7 +69,7 @@ class SourceView::Gutter::Renderer::Pixbuf
     $o;
   }
 
-  # Type: GtkSourceIcon
+  # Type: GIcon
   method gicon ( :$raw = False ) is rw  is g-property {
     my $gv = GLib::Value.new( GIO::Icon.get_type );
     Proxy.new(
@@ -122,7 +122,7 @@ class SourceView::Gutter::Renderer::Pixbuf
     );
   }
 
-  # Type: GtkSourcePixbuf
+  # Type: GdkPixbuf
   method pixbuf ( :$raw = False ) is rw  is g-property {
     my $gv = GLib::Value.new( GDK::Pixbuf.get_type );
     Proxy.new(
